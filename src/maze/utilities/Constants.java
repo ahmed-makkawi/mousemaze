@@ -9,10 +9,10 @@ package maze.utilities;
  */
 public class Constants {
 
-	public static final int MOUSE = 0;
-	public static final int HORIZONTAL = 1;
-	public static final int VERTICAL = 2;
-	public static final int GAP = -1;
-
+	public static final int BLOCK_MOUSE = 0;
+	public static final int BLOCK_HORIZONTAL = 1;
+	public static final int BLOCK_VERTICAL_SMALL = 2;
+	public static final int BLOCK_VERTICAL_BIG = 3;
+	public static final int BLOCK_GAP = -1;
 
 }

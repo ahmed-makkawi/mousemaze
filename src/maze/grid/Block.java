@@ -16,6 +16,9 @@ public class Block {
 	private int type;
 	private int[] pivotPosition;
 
+	public Block() {
+	}
+
 	public Block(int type, int size, int[] pivotPosition) {
 		this.type = type;
 		this.size = size;
@@ -25,20 +28,6 @@ public class Block {
 	/**
 	 * @return empty or not
 	 */
-	/**
-	 * @return the size
-	 */
-	public int getSize() {
-		return size;
-	}
-
-	/**
-	 * @param size
-	 *            the size to set
-	 */
-	public void setSize(int size) {
-		this.size = size;
-	}
 
 	/**
 	 * @return the type
