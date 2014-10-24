@@ -15,7 +15,12 @@ public class BoardMaker {
 	
 	for (int i = 0; i < numberOfTiles; i++)
 	{
-	    int blockType = (int) (Math.random());
+	    int blockType = (int) (4 * Math.random()) ;
+	    switch (blockType)
+	    {
+	    
+	    }
+		
 	    
 	    int blockPositionX  = (int) (5 * Math.random());
 	    int blockPositionY  = (int) (5 * Math.random());
