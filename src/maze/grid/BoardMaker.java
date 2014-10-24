@@ -3,7 +3,7 @@ package maze.grid;
 public class BoardMaker {
 	Block[][] board = new Block[6][6];
 
-	public BoardMaker() {
+	public BoardMaker(){
 		for (int i = 0; i < 6; i++)
 			for (int j = 0; j < 6; j++)
 				board[i][j] = new Block(-1, 0, null);
