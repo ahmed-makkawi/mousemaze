@@ -9,16 +9,13 @@ package maze.utilities;
  */
 public class Constants {
 
-    /**
-     * 
-     */
-
-    public static final int MOUSE 	= 0;
-    public static final int HORIZONTAL 	= 1;
-    public static final int VERTICAL	= 2;
+    
+    public static final int MOUSE 		= 0;
+    public static final int HORIZONTAL_BLOCK 	= 1;
+    public static final int VERTICAL_BLOCK	= 2;
 
     public Constants() {
-	// TODO Auto-generated constructor stub
+	
     }
 
 }
