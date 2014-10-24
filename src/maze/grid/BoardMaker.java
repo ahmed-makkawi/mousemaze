@@ -15,10 +15,10 @@ public class BoardMaker {
 	
 	for (int i = 0; i < numberOfTiles; i++)
 	{
+	    int blockType = (int) (Math.random());
 	    
-	    
-	    int tilePositionX  = (int) (5 * Math.random());
-	    int tilePositionY  = (int) (5 * Math.random());
+	    int blockPositionX  = (int) (5 * Math.random());
+	    int blockPositionY  = (int) (5 * Math.random());
 	    
 	    
 	    
