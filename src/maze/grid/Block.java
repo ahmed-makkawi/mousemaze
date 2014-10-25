@@ -12,16 +12,14 @@ package maze.grid;
  */
 public class Block {
 
-	private int size;
 	private int type;
 	private int[] pivotPosition;
 
 	public Block() {
 	}
 
-	public Block(int type, int size, int[] pivotPosition) {
+	public Block(int type, int[] pivotPosition) {
 		this.type = type;
-		this.size = size;
 		this.pivotPosition = pivotPosition;
 	}
 
