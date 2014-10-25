@@ -1,21 +1,31 @@
 package maze.grid;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
+import maze.utilities.Constants;
+
 public class BoardMaker {
 	Block[][] board = new Block[6][6];
-	public static final int MAX_LOOPS = 1000;// TODO
+	public static final int MAX_LOOPS = 100;// TODO
+	public static boolean horizontalBlockBesideMouse = false;
 
 	public BoardMaker() {
 		for (int i = 0; i < 6; i++)
 			for (int j = 0; j < 6; j++)
-				board[i][j] = new Block(-1, 0, null);
+				board[i][j] = new Block(-1, null);
+		board[2][0] = new Block(Constants.BLOCK_MOUSE, new int[] { 2, 0 });
+		board[2][1] = new Block(Constants.BLOCK_MOUSE, new int[] { 2, 0 });
+
 	}
+
+	public int numberOfBlocks = -1;
 
 	/**
 	 * responsible for generating random grid
 	 */
 	public void GenGrid() {
-		// int numberOfBlocks = (int) (10 * Math.random()) + 4;
-		int numberOfBlocks = 1;
+		numberOfBlocks = (int) (10 * Math.random()) + 4;
+		// int numberOfBlocks = 1;
 
 		Block block;
 		boolean blockInserted = false;
@@ -24,7 +34,8 @@ public class BoardMaker {
 			block = new Block();
 			int blockType = (int) (4 * Math.random());
 			switch (blockType) {
-			case 0 | 1:
+			case 0:
+			case 1:
 				block.setType(maze.utilities.Constants.BLOCK_HORIZONTAL);
 				break;
 			case 2:
@@ -35,13 +46,19 @@ public class BoardMaker {
 				break;
 			}
 			blockInserted = false;
+			loopsTaken = 0;
 			while (!blockInserted && loopsTaken < MAX_LOOPS) {
-				System.out.println("in here while blockinserted");
+				// System.out.println("blockType:"+);
 				int blockPositionY = -1, blockPositionX = -1;
 				switch (blockType) {
-				case 0 | 1:
+				case 0:
+				case 1:
 					blockPositionY = (int) (5 * Math.random());
 					blockPositionX = (int) (6 * Math.random());
+					if (!horizontalBlockBesideMouse) {
+						if (blockPositionX == 2)
+							break;
+					}
 					if (board[blockPositionX][blockPositionY].getType() == maze.utilities.Constants.BLOCK_GAP) {
 						if (board[blockPositionX][blockPositionY + 1].getType() == maze.utilities.Constants.BLOCK_GAP) {
 							blockInserted = true;
@@ -93,21 +110,49 @@ public class BoardMaker {
 
 	public String printBoard() {
 		Block block;
-		String boardString = "";
+		Object value;
+		int currentBlockNumber = -1;
+		int blockNumber = 0;
+		String boardString = "================================================";
+		boardString += "\n| ";
+		Hashtable names = new Hashtable();
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 6; j++) {
 				block = board[i][j];
 				switch (block.getType()) {
 				case maze.utilities.Constants.BLOCK_GAP:
-					boardString += -1 + " ";
+					boardString += "Gap" + "  |  ";
+					break;
+				case maze.utilities.Constants.BLOCK_MOUSE:
+					boardString += "Rex" + "  |  ";
 					break;
 				default:
-					boardString += block.getPivotPosition()[0] + "_"
-							+ block.getPivotPosition()[1] + " ";
+					value = names.get(block.getPivotPosition()[0] + "_"
+							+ block.getPivotPosition()[1]);
+					if (value == null) {
+						names.put(
+								block.getPivotPosition()[0] + "_"
+										+ block.getPivotPosition()[1],
+								blockNumber);
+						blockNumber++;
+					}
+					currentBlockNumber = (int) names.get(block
+							.getPivotPosition()[0]
+							+ "_"
+							+ block.getPivotPosition()[1]);
+					if (currentBlockNumber < 10)
+						boardString += "B0" + currentBlockNumber + "  |  ";
+					else
+						boardString += "B" + currentBlockNumber + "  |  ";
+
+					// boardString += block.getPivotPosition()[0] + "_"
+					// + block.getPivotPosition()[1] + "  |  ";
 				}
 			}
-			boardString += "\n";
+			boardString += "\n| ";
 		}
+		boardString = boardString.substring(0, boardString.length() - 2);
+		boardString += "================================================";
 		return boardString;
 	}
 }

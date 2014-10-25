@@ -18,7 +18,7 @@ public class Block {
 	public Block() {
 	}
 
-	public Block(int type, int id, int[] pivotPosition) {
+	public Block(int type, int[] pivotPosition) {
 		this.type = type;
 		this.pivotPosition = pivotPosition;
 	}
