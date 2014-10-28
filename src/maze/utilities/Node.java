@@ -10,9 +10,9 @@ import maze.grid.Block;
 
 public class Node implements Comparable<Node> {
 	private Block[][] board;
-	int pathCost;
-	int depthCost;
-	Node parentNode;
+	public int pathCost;
+	public int depthCost;
+	public Node parentNode;
 
 	/**
 	 * Node saves the current state of the board
@@ -23,7 +23,10 @@ public class Node implements Comparable<Node> {
 	 * @param depthCost
 	 */
 	public Node(Node parentNode, Block[][] board, int pathCost, int depthCost) {
-		this.board = board;
+		this.board = new Block[board.length][board[0].length];
+		for (int i = 0; i < board.length; i++)
+			for (int j = 0; j < board[0].length; j++)
+				this.board[i][j] = new Block(board[i][j]);
 		this.pathCost = pathCost;
 		this.depthCost = depthCost;
 		this.parentNode = parentNode;
@@ -36,87 +39,6 @@ public class Node implements Comparable<Node> {
 	 * @param action
 	 * @return
 	 */
-	public Node getNextNodeDeprecated(Block block, int action) {
-		Block[][] boardNew = new Block[board.length][];
-
-		for (int i = 0; i < board.length; i++)
-			boardNew[i] = board[i].clone();
-
-		int posX = block.getPivotPosition()[0];
-		int posY = block.getPivotPosition()[1];
-		switch (action) {
-		case Constants.ACTION_UP:
-			if (posX - 1 >= 0)
-				if (isGap(boardNew[posX - 1][posY])) {
-					block.setPivotPosition(new int[] { posX - 1, posY });
-					boardNew[posX - 1][posY] = block;
-					boardNew[posX][posY] = block;
-
-					switch (block.getType()) {
-					case Constants.BLOCK_VERTICAL_SMALL:
-						boardNew[posX + 1][posY] = new Block();
-						break;
-					case Constants.BLOCK_VERTICAL_BIG:
-						boardNew[posX + 1][posY] = block;
-						boardNew[posX + 2][posY] = new Block();
-						break;
-					default:
-						return null;
-
-					}
-				}
-			break;
-		case Constants.ACTION_DOWN:
-			switch (block.getType()) {
-			case Constants.BLOCK_VERTICAL_SMALL:
-				if (posX + 2 <= 5)
-					if (isGap(boardNew[posX + 2][posY])) {
-						block.setPivotPosition(new int[] { posX + 1, posY });
-						boardNew[posX + 1][posY] = block;
-						boardNew[posX + 2][posY] = block;
-						boardNew[posX][posY] = new Block();
-					}
-				break;
-			case Constants.BLOCK_VERTICAL_BIG:
-				if (posX + 3 <= 5)
-					if (isGap(boardNew[posX + 3][posY])) {
-						block.setPivotPosition(new int[] { posX + 1, posY });
-						boardNew[posX + 1][posY] = block;
-						boardNew[posX + 2][posY] = block;
-						boardNew[posX + 3][posY] = block;
-						boardNew[posX][posY] = new Block();
-					}
-				break;
-			default:
-				return null;
-			}
-			break;
-		case Constants.ACTION_LEFT:
-			if (posY - 1 >= 0)
-				if (isGap(boardNew[posX][posY - 1])) {
-					block.setPivotPosition(new int[] { posX, posY - 1 });
-					boardNew[posX][posY + 1] = new Block();
-					boardNew[posX][posY - 1] = block;
-					boardNew[posX][posY] = block;
-				}
-			break;
-
-		case Constants.ACTION_RIGHT:
-			if (posY + 2 <= 5)
-				if (isGap(boardNew[posX][posY + 2])) {
-					block.setPivotPosition(new int[] { posX, posY + 1 });
-					boardNew[posX][posY] = new Block();
-					boardNew[posX][posY + 1] = block;
-					boardNew[posX][posY + 2] = block;
-				}
-			break;
-		default:
-			return null;
-
-		}
-
-		return new Node(this, boardNew, pathCost++, depthCost++);
-	}
 
 	/**
 	 * Gets next node from current node
@@ -125,86 +47,96 @@ public class Node implements Comparable<Node> {
 	 * @param action
 	 * @return
 	 */
-	public Node getNextNode(Block[][] boardNew, Block block, int action) {
-
+	public Node getNextNode(Block block, int action) {
 		int posX = block.getPivotPosition()[0];
 		int posY = block.getPivotPosition()[1];
+
+		Node newNode = new Node(this, board, pathCost + 1, depthCost + 1);
+		Block[][] boardNew = newNode.board;
+
+		final int type = boardNew[posX][posY].getType();
+		final int id = boardNew[posX][posY].id;
 		switch (action) {
 		case Constants.ACTION_UP:
-			boardNew[posX - 1][posY].setPivotPosition(new int[] { posX - 1,
-					posY });
-			boardNew[posX][posY].setPivotPosition(new int[] { posX - 1, posY });
+
+			boardNew[posX - 1][posY].setBlock(type,
+					new int[] { posX - 1, posY }, id);
+			boardNew[posX][posY].setBlock(type, new int[] { posX - 1, posY },
+					id);
 
 			switch (block.getType()) {
 			case Constants.BLOCK_VERTICAL_SMALL:
-				boardNew[posX + 1][posY].setType(Constants.BLOCK_GAP);
-				boardNew[posX + 1][posY].setPivotPosition(null);
+
+				boardNew[posX + 1][posY]
+						.setBlock(Constants.BLOCK_GAP, null, -1);
+
 				break;
 			case Constants.BLOCK_VERTICAL_BIG:
-				boardNew[posX + 1][posY].setPivotPosition(new int[] { posX - 1,
-						posY });
-				boardNew[posX + 2][posY].setType(Constants.BLOCK_GAP);
-				boardNew[posX + 1][posY].setPivotPosition(null);
+
+				boardNew[posX + 1][posY].setBlock(Constants.BLOCK_VERTICAL_BIG,
+						new int[] { posX - 1, posY }, id);
+
+				boardNew[posX + 2][posY]
+						.setBlock(Constants.BLOCK_GAP, null, -1);
 				break;
 			}
 			break;
 		case Constants.ACTION_DOWN:
 			switch (block.getType()) {
 			case Constants.BLOCK_VERTICAL_SMALL:
-				boardNew[posX + 1][posY].setPivotPosition(new int[] { posX + 1,
-						posY });
-				boardNew[posX + 2][posY].setPivotPosition(new int[] { posX + 1,
-						posY });
-				boardNew[posX][posY].setType(Constants.BLOCK_GAP);
-				boardNew[posX][posY].setPivotPosition(null);
+				boardNew[posX + 1][posY].setBlock(
+						Constants.BLOCK_VERTICAL_SMALL, new int[] { posX + 1,
+								posY }, id);
+				boardNew[posX + 2][posY].setBlock(
+						Constants.BLOCK_VERTICAL_SMALL, new int[] { posX + 1,
+								posY }, id);
+
+				boardNew[posX][posY].setBlock(Constants.BLOCK_GAP, null, -1);
 				break;
 			case Constants.BLOCK_VERTICAL_BIG:
-				boardNew[posX + 1][posY].setPivotPosition(new int[] { posX + 1,
-						posY });
-				boardNew[posX + 2][posY].setPivotPosition(new int[] { posX + 1,
-						posY });
-				boardNew[posX + 3][posY].setPivotPosition(new int[] { posX + 1,
-						posY });
-				boardNew[posX][posY].setType(Constants.BLOCK_GAP);
-				boardNew[posX][posY].setPivotPosition(null);
+				boardNew[posX + 1][posY].setBlock(Constants.BLOCK_VERTICAL_BIG,
+						new int[] { posX + 1, posY }, id);
+				boardNew[posX + 2][posY].setBlock(Constants.BLOCK_VERTICAL_BIG,
+						new int[] { posX + 1, posY }, id);
+				boardNew[posX + 3][posY].setBlock(Constants.BLOCK_VERTICAL_BIG,
+						new int[] { posX + 1, posY }, id);
+
+				boardNew[posX][posY].setBlock(Constants.BLOCK_GAP, null, -1);
 				break;
 			}
 			break;
 		case Constants.ACTION_LEFT:
-			boardNew[posX][posY + 1].setType(Constants.BLOCK_GAP);
-			boardNew[posX][posY + 1].setPivotPosition(null);
-			boardNew[posX][posY - 1].setPivotPosition(new int[] { posX,
-					posY - 1 });
-			boardNew[posX][posY].setPivotPosition(new int[] { posX, posY - 1 });
+			boardNew[posX][posY - 1].setBlock(type,
+					new int[] { posX, posY - 1 }, id);
+			boardNew[posX][posY].setBlock(type, new int[] { posX, posY - 1 },
+					id);
+
+			boardNew[posX][posY + 1].setBlock(Constants.BLOCK_GAP, null, -1);
 			break;
 
 		case Constants.ACTION_RIGHT:
-			boardNew[posX][posY + 1].setPivotPosition(new int[] { posX,
-					posY + 1 });
-			boardNew[posX][posY + 2].setPivotPosition(new int[] { posX,
-					posY + 1 });
-			boardNew[posX][posY].setType(Constants.BLOCK_GAP);
-			boardNew[posX][posY].setPivotPosition(null);
+			boardNew[posX][posY + 1].setBlock(type,
+					new int[] { posX, posY + 1 }, id);
+			boardNew[posX][posY + 2].setBlock(type,
+					new int[] { posX, posY + 1 }, id);
+
+			boardNew[posX][posY].setBlock(Constants.BLOCK_GAP, null, -1);
 
 			break;
 
 		}
-
-		return new Node(this, boardNew, pathCost++, depthCost++);
+		return newNode;
 	}
 
 	public List<Node> getChildNodes() {
 		Set<Integer> visitedBlocks = new HashSet<>();
 		List<Node> childNodes = new ArrayList<Node>();
 		ArrayList<Integer> childActions;
-		int currentVisited;
 		Node nextNode;
-		Block[][] boardNew = new Block[board.length][];
 		for (int i = 0; i < board.length; i++)
 			for (int j = 0; j < board[0].length; j++) {
 				if (board[i][j].getType() == Constants.BLOCK_GAP)
 					continue;
-				currentVisited = board[i][j].getPivotID();
 				if (visitedBlocks.contains(board[i][j].getPivotID()))
 					continue;
 				childActions = possibleMoves(board[i][j]);
@@ -212,20 +144,9 @@ public class Node implements Comparable<Node> {
 					continue;
 				visitedBlocks.add(board[i][j].getPivotID());
 				for (int action = 0; action < childActions.size(); action++) {
-					System.out.println("Action: " + childActions.get(action)
-							+ ",applied on block: " + board[i][j].getPivotID());
-					boardNew = new Block[board.length][];
-					for (int xxx = 0; xxx < board.length; xxx++)
-						boardNew[xxx] = board[xxx].clone();
-					nextNode = getNextNode(boardNew, boardNew[i][j],
+					nextNode = getNextNode(board[i][j],
 							childActions.get(action));
-					System.out.println("Cos omm el board:");
-					System.out.println(printBoard());
-					System.out.println("Cos omm el board l metnaka l new:");
-					System.out.println(nextNode.printBoard());
-
-					// System.out.println(nextNode.printBoard());
-					// childNodes.add(nextNode);
+					childNodes.add(nextNode);
 				}
 			}
 		return childNodes;
@@ -322,58 +243,39 @@ public class Node implements Comparable<Node> {
 			return -1;
 	}
 
-	// public String printBoard() {
-	// Block block;
-	// Object value;
-	// int currentBlockNumber = -1;
-	// int blockNumber = 1;
-	// String boardString = "================================================";
-	// boardString += "\n| ";
-	// Hashtable names = new Hashtable();
-	// for (int i = 0; i < 6; i++) {
-	// for (int j = 0; j < 6; j++) {
-	// block = board[i][j];
-	// switch (block.getType()) {
-	// case maze.utilities.Constants.BLOCK_GAP:
-	// boardString += "Gap" + "  |  ";
-	// break;
-	// case maze.utilities.Constants.BLOCK_MOUSE:
-	// boardString += "Rex" + "  |  ";
-	// break;
-	// default:
-	// value = names.get(block.getPivotPosition()[0] + "_"
-	// + block.getPivotPosition()[1]);
-	// if (value == null) {
-	// names.put(
-	// block.getPivotPosition()[0] + "_"
-	// + block.getPivotPosition()[1],
-	// blockNumber);
-	// blockNumber++;
-	// }
-	// currentBlockNumber = (int) names.get(block
-	// .getPivotPosition()[0]
-	// + "_"
-	// + block.getPivotPosition()[1]);
-	// if (currentBlockNumber < 10)
-	// boardString += currentBlockNumber + ""
-	// + currentBlockNumber + "" + currentBlockNumber
-	// + "  |  ";
-	// else
-	// boardString += ("" + currentBlockNumber + ""
-	// + currentBlockNumber + "  |  ").substring(1);
-	//
-	// // boardString += block.getPivotPosition()[0] + "_"
-	// // + block.getPivotPosition()[1] + "  |  ";
-	// }
-	// }
-	// boardString += "\n| ";
-	// }
-	// boardString = boardString.substring(0, boardString.length() - 2);
-	// boardString += "================================================";
-	// return boardString;
-	// }
 
 	public String printBoard() {
+		Block block;
+		String boardString = "================================================";
+		boardString += "\n| ";
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 6; j++) {
+				block = board[i][j];
+				switch (block.getType()) {
+				case maze.utilities.Constants.BLOCK_GAP:
+					boardString += "Gap" + "  |  ";
+					break;
+				case maze.utilities.Constants.BLOCK_MOUSE:
+					boardString += "Rex" + "  |  ";
+					break;
+				default:
+					if (block.id < 10)
+						boardString += block.id + "" + block.id + "" + block.id
+								+ "" + "  |  ";
+					else
+						boardString += ("" + block.id + "" + block.id + "  |  ")
+								.substring(1);
+
+				}
+			}
+			boardString += "\n| ";
+		}
+		boardString = boardString.substring(0, boardString.length() - 2);
+		boardString += "================================================";
+		return boardString;
+	}
+
+	public static String printBoard(Block[][] board) {
 		Block block;
 		String boardString = "================================================";
 		boardString += "\n| ";

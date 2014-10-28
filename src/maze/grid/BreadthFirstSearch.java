@@ -23,17 +23,15 @@ public class BreadthFirstSearch {
 		ArrayList<Node> goalPath = new ArrayList<>();
 		while ((current = queue.poll()) != null) {
 			// System.out.println(current.printBoard());
-			System.out.println("Node.board");
-			System.out.println(current.printBoard());
 			if (checkIfGoal(current.getBoard())) {
 				goalPath.add(current);
 				return current.getAncestors(goalPath);
 			}
 			if (done.contains(current)) // avoid infinite loops
 				continue;
-
 			currentNodeChildren = current.getChildNodes();
 			queue.addAll(currentNodeChildren);
+//			System.out.println("Queue size: " + queue.size());
 			done.add(current);
 		}
 		return goalPath;

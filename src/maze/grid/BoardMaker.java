@@ -24,8 +24,8 @@ public class BoardMaker {
 		for (int i = 0; i < 6; i++)
 			for (int j = 0; j < 6; j++)
 				board[i][j] = new Block();
-		board[2][0] = new Block(Constants.BLOCK_MOUSE, new int[] { 2, 0 });
-		board[2][1] = new Block(Constants.BLOCK_MOUSE, new int[] { 2, 0 });
+		board[2][0] = new Block(Constants.BLOCK_MOUSE, new int[] { 2, 0 }, true);
+		board[2][1] = new Block(Constants.BLOCK_MOUSE, new int[] { 2, 0 }, true);
 
 	}
 
@@ -35,8 +35,10 @@ public class BoardMaker {
 	 * responsible for generating random grid
 	 */
 	public void GenGrid() {
-		// numberOfBlocks = (int) (10 * Math.random()) + 4;
-		numberOfBlocks = 3;
+//		numberOfBlocks = (int) (10 * Math.random()) + 4;
+		 numberOfBlocks = 4;
+		System.out.println("Number of Blocks to be generated: "
+				+ numberOfBlocks);
 
 		Block block;
 		boolean blockInserted = false;
@@ -75,8 +77,12 @@ public class BoardMaker {
 							blockInserted = true;
 							block.setPivotPosition(new int[] { blockPositionX,
 									blockPositionY });
-							board[blockPositionX][blockPositionY] = block;
-							board[blockPositionX][blockPositionY + 1] = block;
+							board[blockPositionX][blockPositionY] = new Block(
+									block.getType(), block.getPivotPosition(),
+									block.id);
+							board[blockPositionX][blockPositionY + 1] = new Block(
+									block.getType(), block.getPivotPosition(),
+									block.id);
 
 						}
 					}
@@ -89,8 +95,12 @@ public class BoardMaker {
 							blockInserted = true;
 							block.setPivotPosition(new int[] { blockPositionX,
 									blockPositionY });
-							board[blockPositionX][blockPositionY] = block;
-							board[blockPositionX + 1][blockPositionY] = block;
+							board[blockPositionX][blockPositionY] = new Block(
+									block.getType(), block.getPivotPosition(),
+									block.id);
+							board[blockPositionX + 1][blockPositionY] = new Block(
+									block.getType(), block.getPivotPosition(),
+									block.id);
 						}
 					}
 
@@ -105,9 +115,15 @@ public class BoardMaker {
 								blockInserted = true;
 								block.setPivotPosition(new int[] {
 										blockPositionX, blockPositionY });
-								board[blockPositionX][blockPositionY] = block;
-								board[blockPositionX + 1][blockPositionY] = block;
-								board[blockPositionX + 2][blockPositionY] = block;
+								board[blockPositionX][blockPositionY] = new Block(
+										block.getType(),
+										block.getPivotPosition(), block.id);
+								board[blockPositionX + 1][blockPositionY] = new Block(
+										block.getType(),
+										block.getPivotPosition(), block.id);
+								board[blockPositionX + 2][blockPositionY] = new Block(
+										block.getType(),
+										block.getPivotPosition(), block.id);
 
 							}
 						}
