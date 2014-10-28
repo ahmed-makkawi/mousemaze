@@ -1,47 +1,20 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import maze.grid.BoardMaker;
 import maze.grid.BreadthFirstSearch;
+import maze.grid.DepthFirstSearch;
+import maze.grid.IterativeDeepening;
 import maze.utilities.Node;
 
 public class test {
+	public static final int BREADTH_FIRST = 0, DEPTH_FIRST = 1,
+			ITERATIVE_DEEPENING = 2;
+	public static int type = ITERATIVE_DEEPENING;
+
 	public static void main(String[] args) {
-		// BoardMaker bm = new BoardMaker();
-		// bm.GenGrid();
-		// System.out.println("mNumber of blocks to be initiated= "
-		// + bm.numberOfBlocks);
-		// System.out.println(bm.printBoard());
-
-		// int[][] board = new int[][] { { 1, 2 }, { 3, 4 } };
-		// int[][] boardNew = new int[board.length][];
-		//
-		// for (int i = 0; i < board.length; i++)
-		// boardNew[i] = board[i].clone();
-		// // boardNew[1][1] = 55555;
-		// for (int[] a : board)
-		// for (int b : a)
-		// System.out.println(b);
-
-		// Block[][] board = new Block[][] { { new Block(), new
-		// Block(maze.utilities.Constants.BLOCK_HORIZONTAL,new int[]{0,0}) }, {
-		// new Block(), new Block() } };
-		// Block[][] boardNew = new Block[board.length][];
-		//
-		// for (int i = 0; i < board.length; i++)
-		// boardNew[i] = board[i].clone();
-		// // boardNew[1][1] = 55555;
-		//
-		// System.out.println(Arrays.deepEquals(board, boardNew));
-
-		// Set<Integer> childNodes = new HashSet<>();
-		// Integer[] a = { 1, 2 };
-		// Integer[] b = { 1, 2 };
-		// childNodes.add(3);
-		// childNodes.add(3);
-		//
-		// System.out.println(childNodes.size());
 
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
@@ -50,11 +23,26 @@ public class test {
 		System.out.println("mNumber of blocks to be initiated= "
 				+ bm.numberOfBlocks);
 		Node root = new Node(null, bm.getBoard(), 0, 0);
-
-		BreadthFirstSearch bf = new BreadthFirstSearch();
-		List<Node> goalPath = bf.breadthFirstSearch(root);
-		System.out.println("Size" + goalPath.size());
+		Object bf;
+		List<Node> goalPath = new ArrayList<>();
+		switch (type) {
+		case BREADTH_FIRST:
+			bf = new BreadthFirstSearch();
+			goalPath = ((BreadthFirstSearch) bf).search(root);
+			System.err.println("Size" + goalPath.size());
+			break;
+		case DEPTH_FIRST:
+			bf = new DepthFirstSearch();
+			goalPath = ((DepthFirstSearch) bf).search(root);
+			System.err.println("Size" + goalPath.size());
+			break;
+		case ITERATIVE_DEEPENING:
+			bf = new IterativeDeepening();
+			goalPath = ((IterativeDeepening) bf).search(root);
+			System.err.println("Size" + goalPath.size());
+			break;
+		}
 		for (int i = goalPath.size() - 1; i >= 0; i--)
-			System.out.println(goalPath.get(i).printBoard());
+			System.err.println(goalPath.get(i).printBoard());
 	}
 }

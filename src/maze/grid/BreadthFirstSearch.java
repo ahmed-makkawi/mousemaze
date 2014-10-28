@@ -16,7 +16,7 @@ public class BreadthFirstSearch {
 	public Set<Node> done = new HashSet<Node>(); // To limit tree size,
 													// To avoid looping
 
-	public List<Node> breadthFirstSearch(Node root) {
+	public List<Node> search(Node root) {
 		queue.add(root);
 		Node current;
 		List<Node> currentNodeChildren;
@@ -31,9 +31,10 @@ public class BreadthFirstSearch {
 				continue;
 			currentNodeChildren = current.getChildNodes();
 			queue.addAll(currentNodeChildren);
-//			System.out.println("Queue size: " + queue.size());
+			// System.out.println("Queue size: " + queue.size());
 			done.add(current);
 		}
+		System.out.println("No solution exists!");
 		return goalPath;
 	}
 

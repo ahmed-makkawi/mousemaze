@@ -1,14 +1,13 @@
 package maze.utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import maze.grid.Block;
 
-public class Node implements Comparable<Node> {
+public class Node {
 	private Block[][] board;
 	public int pathCost;
 	public int depthCost;
@@ -223,26 +222,43 @@ public class Node implements Comparable<Node> {
 	}
 
 	@Override
-	public int compareTo(Node o) {
+	public int hashCode() {
+
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Node o = (Node) obj;
 		// =====Safety check deprecated for now
 		if (parentNode == null) { // this = rootNode
 			if (o.parentNode == null) // o = rootNode
-				return 0;
+				return true;
 			else
-				return -1;
+				return false;
 		} else // this != root
 		if (o.parentNode == null) // o = rootNode
-			return -1;
+			return false;
 		// ===========================================
 		// Boards of nodes and of parents are the same
 		// ===========================================
-		if (Arrays.deepEquals(board, o.board)
-				&& Arrays.deepEquals(parentNode.board, o.parentNode.board))
-			return 0;
+		// if (Arrays.deepEquals(board, o.board)
+		// && Arrays.deepEquals(parentNode.board, o.parentNode.board))
+		if (compareBoards(board, o.board)
+				&& compareBoards(parentNode.board, o.parentNode.board))
+			return true;
 		else
-			return -1;
+			return false;
 	}
 
+	public static boolean compareBoards(Block[][] b1, Block[][] b2) {
+		boolean b = true;
+		for (int i = 0; i < b1.length; i++)
+			for (int j = 0; j < b1[0].length; j++)
+				b &= (b1[i][j].equals(b2[i][j]));
+		return b;
+
+	}
 
 	public String printBoard() {
 		Block block;

@@ -111,4 +111,9 @@ public class Block {
 		return 6 * pivotPosition[0] + pivotPosition[1];
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		return this.id == ((Block) o).id;
+	}
+
 }

@@ -35,8 +35,8 @@ public class BoardMaker {
 	 * responsible for generating random grid
 	 */
 	public void GenGrid() {
-//		numberOfBlocks = (int) (10 * Math.random()) + 4;
-		 numberOfBlocks = 4;
+		numberOfBlocks = (int) (10 * Math.random()) + 4;
+		// numberOfBlocks = 3;
 		System.out.println("Number of Blocks to be generated: "
 				+ numberOfBlocks);
 
