@@ -21,7 +21,7 @@ public class IterativeDeepening {
 		List<Node> currentNodeChildren;
 		ArrayList<Node> goalPath = new ArrayList<>();
 		int iterLevel = 0;
-		int maxLevel = 100;
+		int maxLevel = 10;
 		while (true) {
 			stack.removeAllElements();
 			stack.add(root);
