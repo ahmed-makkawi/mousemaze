@@ -7,11 +7,13 @@ import java.util.Set;
 
 import maze.grid.Block;
 
-public class Node {
+public class Node implements Comparable<Node> {
 	private Block[][] board;
 	public int pathCost;
 	public int depthCost;
 	public Node parentNode;
+	public int heuristicValue = 1;
+	public int costHeuristicValue = 0;
 
 	/**
 	 * Node saves the current state of the board
@@ -150,6 +152,125 @@ public class Node {
 			}
 		return childNodes;
 
+	}
+
+	/**
+	 * 
+	 * @return childNodes 2D ArrayList childNodes[0] =
+	 *         childNodesWithHeuristicValue0; childNodes[1] =
+	 *         childNodesWithHeuristicValue1; To ease the greedy algorithm
+	 */
+	public List<List<Node>> getChildNodesWithHeuristics() {
+		Set<Integer> visitedBlocks = new HashSet<>();
+		List<List<Node>> childNodes = new ArrayList<List<Node>>();
+		List<Node> childNodesWithValue0 = new ArrayList<Node>();
+		List<Node> childNodesWithValue1 = new ArrayList<Node>();
+
+		ArrayList<Integer> childActions;
+		Node nextNode;
+		for (int i = 0; i < board.length; i++)
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j].getType() == Constants.BLOCK_GAP)
+					continue;
+				if (visitedBlocks.contains(board[i][j].getPivotID()))
+					continue;
+				childActions = possibleMoves(board[i][j]);
+				if (childActions == null)
+					continue;
+				visitedBlocks.add(board[i][j].getPivotID());
+				for (int action = 0; action < childActions.size(); action++) {
+					nextNode = getNextNode(board[i][j],
+							childActions.get(action));
+					nextNode.heuristicValue = getHeuristicOfBlock(
+							Constants.HEURISTIC_CHOSEN, board[i][j]);
+					switch (nextNode.heuristicValue) {
+					case 0:
+						childNodesWithValue0.add(nextNode);
+						break;
+					case 1:
+						childNodesWithValue1.add(nextNode);
+						break;
+					}
+				}
+			}
+		childNodes.add(childNodesWithValue0);
+		childNodes.add(childNodesWithValue1);
+
+		return childNodes;
+	}
+
+	/**
+	 * 
+	 * @return childNodes 2D ArrayList childNodes[0] =
+	 *         childNodesWithHeuristicValue0; childNodes[1] =
+	 *         childNodesWithHeuristicValue1; To ease the greedy algorithm
+	 */
+	public List<Node> getChildNodesWithHeuristicsAndCost() {
+		Set<Integer> visitedBlocks = new HashSet<>();
+		List<Node> childNodes = new ArrayList<Node>();
+
+		ArrayList<Integer> childActions;
+		Node nextNode;
+		for (int i = 0; i < board.length; i++)
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j].getType() == Constants.BLOCK_GAP)
+					continue;
+				if (visitedBlocks.contains(board[i][j].getPivotID()))
+					continue;
+				childActions = possibleMoves(board[i][j]);
+				if (childActions == null)
+					continue;
+				visitedBlocks.add(board[i][j].getPivotID());
+				for (int action = 0; action < childActions.size(); action++) {
+					nextNode = getNextNode(board[i][j],
+							childActions.get(action));
+					nextNode.costHeuristicValue = getHeuristicOfBlock(
+							Constants.HEURISTIC_CHOSEN, board[i][j])
+							+ nextNode.pathCost;
+					childNodes.add(nextNode);
+				}
+			}
+
+		return childNodes;
+	}
+
+	public int getHeuristicOfBlock(int heuristicID, Block c) {
+
+		switch (heuristicID) {
+		// ====================
+		// Prefer to move REX and Vertical Blocks with PivotPos in Row1 or Row2
+		// ====================
+		case Constants.HEURISTIC_1:
+			if (c.getType() == Constants.BLOCK_VERTICAL_BIG
+					|| c.getType() == Constants.BLOCK_VERTICAL_SMALL)
+				if (c.getPivotPosition()[0] == 2
+						|| c.getPivotPosition()[0] == 1)
+					return 0;
+			if (c.getType() == Constants.BLOCK_MOUSE)
+				return 0;
+			else
+				return 1;
+		case Constants.HEURISTIC_2:
+			// ====================
+			// Prefer to move REX and Vertical Blocks with PivotPos in Row1 or
+			// Row2 and Horizontal Blocks in Row1 and Row3
+			// ====================
+			if (c.getType() == Constants.BLOCK_VERTICAL_BIG
+					|| c.getType() == Constants.BLOCK_VERTICAL_SMALL)
+				if (c.getPivotPosition()[0] == 2
+						|| c.getPivotPosition()[0] == 1)
+					return 0;
+			if (c.getType() == Constants.BLOCK_MOUSE)
+				return 0;
+			if (c.getType() == Constants.BLOCK_HORIZONTAL)
+				if (c.getPivotPosition()[0] == 3
+						|| c.getPivotPosition()[0] == 1)
+					return 0;
+				else
+					return 1;
+
+		}
+		return 1;
 	}
 
 	/**
@@ -330,5 +451,14 @@ public class Node {
 
 	public String toString() {
 		return printBoard();
+	}
+
+	@Override
+	public int compareTo(Node o) {
+		int compare = Integer.compare(costHeuristicValue, o.costHeuristicValue);
+		if (compare == 0)
+			return 1;
+		else
+			return Integer.compare(costHeuristicValue, o.costHeuristicValue);
 	}
 }
