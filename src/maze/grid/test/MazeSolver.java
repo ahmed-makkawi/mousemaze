@@ -17,7 +17,7 @@ public class MazeSolver {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
 
-		MiM(bm.getBoard(), "df", true);
+		MiM(bm.getBoard(), "id", true);
 
 	}
 
@@ -98,7 +98,7 @@ public class MazeSolver {
 			return Constants.SEARCH_BREADTH_FIRST;
 		case "df":
 			return Constants.SEARCH_DEPTH_FIRST;
-		case "ID":
+		case "id":
 			return Constants.SEARCH_ITERATIVE_DEEPENING;
 		case "gr1":
 			setHeurestic(Constants.HEURISTIC_1);
