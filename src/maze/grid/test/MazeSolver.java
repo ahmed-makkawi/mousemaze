@@ -17,8 +17,14 @@ public class MazeSolver {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
 
-		MiM(bm.getBoard(), "BF", true);
+		MiM(bm.getBoard(), "DF", true);
 
+	}
+
+	public static void compare(Block[][] grid, List<String> strategies) {
+		for (String type : strategies) {
+			MiM(grid, type, false);
+		}
 	}
 
 	/**
@@ -66,8 +72,8 @@ public class MazeSolver {
 		}
 
 		System.out.println("Goal Path:");
-		for (Node x : goalPath)
-			System.out.println(x);
+		for (int i = goalPath.size() - 1; i >= 0; i--)
+			System.out.println(goalPath.get(i));
 
 		System.out.println("Time Elapsed: " + timeElapsed + "\nVisited Nodes: "
 				+ sp.getNumberOfVisitedNodes());
