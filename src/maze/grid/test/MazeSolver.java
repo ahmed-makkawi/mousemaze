@@ -20,6 +20,17 @@ public class MazeSolver {
 	MiM(bm.getBoard(), "as1", true);
 
     }
+    
+	/**
+	 * Compare algorithms
+	 * @param grid
+	 * @param strategies
+	 */
+	public static void compare(Block[][] grid, List<String> strategies) {
+		for (String type : strategies) {
+			MiM(grid, type, false);
+		}
+	}
 
     /**
      * 
@@ -97,6 +108,7 @@ public class MazeSolver {
 	    return Constants.SEARCH_ASTAR_SEARCH;
 	default:
 	    return Constants.SEARCH_ASTAR_SEARCH;
+
 
 	}
     }
