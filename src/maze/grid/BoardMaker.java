@@ -1,5 +1,6 @@
 package maze.grid;
 
+import maze.utilities.Block;
 import maze.utilities.Constants;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
@@ -38,9 +39,6 @@ public class BoardMaker {
 	 */
 	public void GenGrid() {
 		numberOfBlocks = (int) (10 * Math.random()) + 4;
-		// numberOfBlocks = 3;
-		System.out.println("Number of Blocks to be generated: "
-				+ numberOfBlocks);
 
 		Block block;
 		boolean blockInserted = false;
