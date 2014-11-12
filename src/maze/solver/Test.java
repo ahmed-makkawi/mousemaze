@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 import maze.grid.BoardMaker;
 import maze.utilities.Node;
 
-public class ToBeRenamed {
+public class Test {
 	public static void main(String[] args) {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
@@ -27,6 +27,7 @@ public class ToBeRenamed {
 		nodes.add(x4);
 
 		PriorityQueue<Node> tree = new PriorityQueue<>();
+		tree.addAll(new ArrayList<Node>());
 		tree.add(x1);
 		tree.add(x2);
 		tree.add(x3);

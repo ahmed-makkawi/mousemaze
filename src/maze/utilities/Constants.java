@@ -13,9 +13,14 @@ public class Constants {
 	public static final int ACTION_LEFT = 7;
 	public static final int ACTION_RIGHT = 8;
 
-	public static final int HEURISTIC_1 = 0;
-	public static final int HEURISTIC_2 = 1;
+	public static final int HEURISTIC_1 = 1;
+	public static final int HEURISTIC_2 = 2;
 
-	public static final int HEURISTIC_CHOSEN = HEURISTIC_2;
+	public static int HEURISTIC_CHOSEN = HEURISTIC_2; //default heurestic
 
+	public static final int SEARCH_BREADTH_FIRST = 0, SEARCH_DEPTH_FIRST = 1,
+			SEARCH_ITERATIVE_DEEPENING = 2, SEARCH_GREEDY_SEARCH = 3,
+			SEARCH_ASTAR_SEARCH = 4;
+
+	public static final int maxLevel = 10; // For ItereativeDeepening
 }

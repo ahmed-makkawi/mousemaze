@@ -2,9 +2,8 @@ package maze.grid.searchTrees;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 import maze.utilities.Block;
@@ -13,21 +12,17 @@ import maze.utilities.Node;
 
 public class GreedySearch {
 
-	public Queue<Node> queue0 = new LinkedList<Node>();
-	public Queue<Node> queue1 = new LinkedList<Node>();
+	public PriorityQueue<Node> queue = new PriorityQueue<Node>();
 
 	public Set<Node> done = new HashSet<Node>(); // To limit tree size,
 													// To avoid looping
 
 	public List<Node> search(Node root) {
-		queue0.add(root);
+		queue.add(root);
 		Node current;
-		List<List<Node>> currentNodeChildren;
+		List<Node> currentNodeChildren;
 		ArrayList<Node> goalPath = new ArrayList<>();
-		while (true) {
-			if ((current = queue0.poll()) == null)
-				if ((current = queue1.poll()) == null)
-					break;
+		while ((current = queue.poll()) != null) {
 			// System.out.println(current.printBoard());
 			if (checkIfGoal(current.getBoard())) {
 				goalPath.add(current);
@@ -36,9 +31,7 @@ public class GreedySearch {
 			if (done.contains(current)) // avoid infinite loops
 				continue;
 			currentNodeChildren = current.getChildNodesWithHeuristics();
-			queue0.addAll(currentNodeChildren.get(0));
-			queue1.addAll(currentNodeChildren.get(1));
-
+			queue.addAll(currentNodeChildren);
 			// System.out.println("Queue size: " + queue.size());
 			done.add(current);
 		}

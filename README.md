@@ -16,6 +16,16 @@ Search Problem:
 - goal test
 - states space
 
+/* Algorithm:
+ * nodes <- MAKE-Q(MAKE-NODE(INIT-STATE(problem)))
+ * loop do If nodes is empty 
+ * then return failure 
+ * node <- REMOVE-FRONT(nodes) 
+ * If GOAL-TEST(problem)(STATE(node)) 
+ * then return node nodes <- QING-FUN(nodes,EXPAND(node, OPER(problem)))
+ * end
+ */
+
 BreadthFirst:
 - takes Root Node
 - Insert first level nodes into the queue

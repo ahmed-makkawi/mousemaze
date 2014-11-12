@@ -1,15 +1,10 @@
-/**
- * 
- */
 package maze.utilities;
-
 
 /**
  * Class represents the Block and the attributes it needs to represent each
  * block, each block contains if its empty or not, its full size, the type of
  * the block either vertical, horizontal or the mouse and the block pivot.
  * 
- * @author ahmed
  */
 public class Block {
 

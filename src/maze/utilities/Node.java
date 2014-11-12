@@ -7,10 +7,9 @@ import java.util.Set;
 
 public class Node implements Comparable<Node> {
 	private Block[][] board;
-	public int pathCost;
+	public int pathCost; // incremented by 2
 	public int depthCost;
 	public Node parentNode;
-	public int heuristicValue = 1;
 	public int costHeuristicValue = 0;
 
 	/**
@@ -50,7 +49,7 @@ public class Node implements Comparable<Node> {
 		int posX = block.getPivotPosition()[0];
 		int posY = block.getPivotPosition()[1];
 
-		Node newNode = new Node(this, board, pathCost + 1, depthCost + 1);
+		Node newNode = new Node(this, board, pathCost + 2, depthCost + 1);
 		Block[][] boardNew = newNode.board;
 
 		final int type = boardNew[posX][posY].getType();
@@ -158,11 +157,9 @@ public class Node implements Comparable<Node> {
 	 *         childNodesWithHeuristicValue0; childNodes[1] =
 	 *         childNodesWithHeuristicValue1; To ease the greedy algorithm
 	 */
-	public List<List<Node>> getChildNodesWithHeuristics() {
+	public List<Node> getChildNodesWithHeuristics() {
 		Set<Integer> visitedBlocks = new HashSet<>();
-		List<List<Node>> childNodes = new ArrayList<List<Node>>();
-		List<Node> childNodesWithValue0 = new ArrayList<Node>();
-		List<Node> childNodesWithValue1 = new ArrayList<Node>();
+		List<Node> childNodes = new ArrayList<Node>();
 
 		ArrayList<Integer> childActions;
 		Node nextNode;
@@ -179,20 +176,11 @@ public class Node implements Comparable<Node> {
 				for (int action = 0; action < childActions.size(); action++) {
 					nextNode = getNextNode(board[i][j],
 							childActions.get(action));
-					nextNode.heuristicValue = getHeuristicOfBlock(
+					nextNode.costHeuristicValue = getHeuristicOfBlock(
 							Constants.HEURISTIC_CHOSEN, board[i][j]);
-					switch (nextNode.heuristicValue) {
-					case 0:
-						childNodesWithValue0.add(nextNode);
-						break;
-					case 1:
-						childNodesWithValue1.add(nextNode);
-						break;
-					}
+					childNodes.add(nextNode);
 				}
 			}
-		childNodes.add(childNodesWithValue0);
-		childNodes.add(childNodesWithValue1);
 
 		return childNodes;
 	}
@@ -233,6 +221,12 @@ public class Node implements Comparable<Node> {
 	}
 
 	public int getHeuristicOfBlock(int heuristicID, Block c) {
+		// =====================
+		// Centric property, goal has heuristic value = 0
+		// =====================
+		if (c.getType() == Constants.BLOCK_MOUSE)
+			if (c.getPivotPosition()[1] == 4)
+				return 0;
 
 		switch (heuristicID) {
 		// ====================
@@ -243,11 +237,11 @@ public class Node implements Comparable<Node> {
 					|| c.getType() == Constants.BLOCK_VERTICAL_SMALL)
 				if (c.getPivotPosition()[0] == 2
 						|| c.getPivotPosition()[0] == 1)
-					return 0;
+					return 1;
 			if (c.getType() == Constants.BLOCK_MOUSE)
-				return 0;
-			else
 				return 1;
+			else
+				return 2;
 		case Constants.HEURISTIC_2:
 			// ====================
 			// Prefer to move REX and Vertical Blocks with PivotPos in Row1 or
@@ -257,18 +251,18 @@ public class Node implements Comparable<Node> {
 					|| c.getType() == Constants.BLOCK_VERTICAL_SMALL)
 				if (c.getPivotPosition()[0] == 2
 						|| c.getPivotPosition()[0] == 1)
-					return 0;
+					return 1;
 			if (c.getType() == Constants.BLOCK_MOUSE)
-				return 0;
+				return 1;
 			if (c.getType() == Constants.BLOCK_HORIZONTAL)
 				if (c.getPivotPosition()[0] == 3
 						|| c.getPivotPosition()[0] == 1)
-					return 0;
-				else
 					return 1;
+				else
+					return 2;
 
 		}
-		return 1;
+		return 2;
 	}
 
 	/**
@@ -331,7 +325,7 @@ public class Node implements Comparable<Node> {
 	 * 
 	 * @return
 	 */
-	public List<Node> getAncestors(ArrayList<Node> nodes) {
+	public List<Node> getAncestors(List<Node> nodes) {
 		if (parentNode == null) {
 			return nodes;
 		}
@@ -363,8 +357,9 @@ public class Node implements Comparable<Node> {
 		// ===========================================
 		// if (Arrays.deepEquals(board, o.board)
 		// && Arrays.deepEquals(parentNode.board, o.parentNode.board))
-		if (compareBoards(board, o.board)
-				&& compareBoards(parentNode.board, o.parentNode.board))
+		// if (compareBoards(board, o.board)
+		// && compareBoards(parentNode.board, o.parentNode.board))
+		if (compareBoards(board, o.board))
 			return true;
 		else
 			return false;

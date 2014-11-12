@@ -17,7 +17,6 @@ public class BoardMaker {
 
 	public static boolean horizontalBlockBesideMouse = false;
 
-
 	// ============================#================================
 	// End of Booleans
 	// ============================#================================
