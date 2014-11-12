@@ -21,6 +21,11 @@ public class MazeSolver {
 
 	}
 
+	/**
+	 * Compare algorithms
+	 * @param grid
+	 * @param strategies
+	 */
 	public static void compare(Block[][] grid, List<String> strategies) {
 		for (String type : strategies) {
 			MiM(grid, type, false);
