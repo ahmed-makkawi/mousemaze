@@ -16,10 +16,7 @@ public class MazeSolver {
     public static void main(String[] args) {
 	BoardMaker bm = new BoardMaker();
 	bm.GenGrid();
-
-
-		MiM(bm.getBoard(), "df", true);
-
+	MiM(bm.getBoard(), "id", true);
 	}
 
     
@@ -97,33 +94,30 @@ public class MazeSolver {
 	}
 
 
-    
+	public static int getStrategyType(String strategy) {
+		switch (strategy.trim().toLowerCase()) {
+		case "bf":
+			return Constants.SEARCH_BREADTH_FIRST;
+		case "df":
+			return Constants.SEARCH_DEPTH_FIRST;
+		case "id":
+			return Constants.SEARCH_ITERATIVE_DEEPENING;
+		case "gr1":
+			setHeurestic(Constants.HEURISTIC_1);
+			return Constants.SEARCH_GREEDY_SEARCH;
+		case "gr2":
+			setHeurestic(Constants.HEURISTIC_2);
+			return Constants.SEARCH_GREEDY_SEARCH;
+		case "as1":
+			setHeurestic(Constants.HEURISTIC_1);
+			return Constants.SEARCH_ASTAR_SEARCH;
+		case "as2":
+			setHeurestic(Constants.HEURISTIC_2);
+			return Constants.SEARCH_ASTAR_SEARCH;
+		default:
+			return Constants.SEARCH_ASTAR_SEARCH;
 
-    public static int getStrategyType(String strategy) {
-	switch (strategy.trim().toLowerCase()) {
-	case "bf":
-	    return Constants.SEARCH_BREADTH_FIRST;
-	case "df":
-	    return Constants.SEARCH_DEPTH_FIRST;
-	case "ID":
-	    return Constants.SEARCH_ITERATIVE_DEEPENING;
-	case "gr1":
-	    setHeurestic(Constants.HEURISTIC_1);
-	    return Constants.SEARCH_GREEDY_SEARCH;
-	case "gr2":
-	    setHeurestic(Constants.HEURISTIC_2);
-	    return Constants.SEARCH_GREEDY_SEARCH;
-	case "as1":
-	    setHeurestic(Constants.HEURISTIC_1);
-	    return Constants.SEARCH_ASTAR_SEARCH;
-	case "as2":
-	    setHeurestic(Constants.HEURISTIC_2);
-	    return Constants.SEARCH_ASTAR_SEARCH;
-	default:
-	    return Constants.SEARCH_ASTAR_SEARCH;
-
-
-	}
+		}
     }
 
     public static void setHeurestic(int heuristic) {
