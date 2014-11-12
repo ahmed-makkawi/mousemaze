@@ -37,8 +37,8 @@ public class BoardMaker {
 	 * responsible for generating random grid
 	 */
 	public void GenGrid() {
-		numberOfBlocks = (int) (10 * Math.random()) + 4;
-
+		//numberOfBlocks = (int) (10 * Math.random()) + 4;
+	    	numberOfBlocks = 5;
 		Block block;
 		boolean blockInserted = false;
 		int loopsTaken = 0;
