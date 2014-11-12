@@ -1,9 +1,8 @@
 /**
  * 
  */
-package maze.grid;
+package maze.utilities;
 
-import maze.utilities.Constants;
 
 /**
  * Class represents the Block and the attributes it needs to represent each

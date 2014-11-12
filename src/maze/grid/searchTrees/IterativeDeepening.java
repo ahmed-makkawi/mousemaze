@@ -1,4 +1,4 @@
-package maze.grid;
+package maze.grid.searchTrees;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import maze.utilities.Block;
 import maze.utilities.Constants;
 import maze.utilities.Node;
 

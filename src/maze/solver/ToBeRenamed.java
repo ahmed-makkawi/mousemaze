@@ -1,4 +1,4 @@
-package test;
+package maze.solver;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 import maze.grid.BoardMaker;
 import maze.utilities.Node;
 
-public class TestBolaFightWWe {
+public class ToBeRenamed {
 	public static void main(String[] args) {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();

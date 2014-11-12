@@ -1,4 +1,4 @@
-package maze.grid;
+package maze.grid.searchTrees;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import maze.utilities.Block;
 import maze.utilities.Constants;
 import maze.utilities.Node;
 

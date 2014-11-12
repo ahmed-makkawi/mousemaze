@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import maze.grid.Block;
-
 public class Node implements Comparable<Node> {
 	private Block[][] board;
 	public int pathCost;
