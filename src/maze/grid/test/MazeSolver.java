@@ -17,12 +17,13 @@ public class MazeSolver {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
 
-		MiM(bm.getBoard(), "DF", true);
+		MiM(bm.getBoard(), "df", true);
 
 	}
 
 	/**
 	 * Compare algorithms
+	 * 
 	 * @param grid
 	 * @param strategies
 	 */
@@ -63,6 +64,11 @@ public class MazeSolver {
 		// Search
 		// ================
 		goalPath = sp.search(root, type);
+		if (goalPath == null) {
+			System.err.println("No Solution Exists!");
+			System.err.println("Time Elapsed: " + timeElapsed);
+			return null;
+		}
 
 		result.add(goalPath);
 		result.add(timeElapsed);
@@ -76,11 +82,11 @@ public class MazeSolver {
 			// System.out.println(x);
 		}
 
-		System.out.println("Goal Path:");
+		System.err.println("Goal Path:");
 		for (int i = goalPath.size() - 1; i >= 0; i--)
-			System.out.println(goalPath.get(i));
+			System.err.println(goalPath.get(i));
 
-		System.out.println("Time Elapsed: " + timeElapsed + "\nVisited Nodes: "
+		System.err.println("Time Elapsed: " + timeElapsed + "\nVisited Nodes: "
 				+ sp.getNumberOfVisitedNodes());
 
 		return result;
