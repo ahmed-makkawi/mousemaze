@@ -1,5 +1,6 @@
 package maze.solver;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -74,9 +75,14 @@ public class MazeSolver {
 		for (int i = goalPath.size() - 1; i >= 0; i--)
 		    System.err.println(goalPath.get(i).printBoard());
 
+		NumberFormat myFormat = NumberFormat.getInstance();
+		myFormat.setGroupingUsed(true);
+		
 		long finalTime = System.currentTimeMillis();
+		long totalTime = finalTime - startTime;
+		
 		System.out.println("Time taken to solve the maze = "
-			+ (finalTime - startTime + " Milliseconds \n"));
+			+myFormat.format(totalTime) + " Milliseconds \n");
 	    } else
 		System.err
 			.println("Your input is not listed in the search tree options");
