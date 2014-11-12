@@ -78,6 +78,7 @@ public class SearchProblem {
 			}
 			if (done.contains(current)) // avoid infinite loops
 				continue;
+			done.add(current);
 			currentNodeChildren = queue.getChildNodes(current);
 			queue.addAll(currentNodeChildren);
 		}

@@ -17,12 +17,16 @@ public class MazeSolver {
 	BoardMaker bm = new BoardMaker();
 	bm.GenGrid();
 
-	MiM(bm.getBoard(), "as1", true);
 
-    }
+		MiM(bm.getBoard(), "df", true);
+
+	}
+
+    
     
 	/**
 	 * Compare algorithms
+	 * 
 	 * @param grid
 	 * @param strategies
 	 */
@@ -32,59 +36,68 @@ public class MazeSolver {
 		}
 	}
 
-    /**
-     * 
-     * @param grid
-     *            generated from GenGrid
-     * @param strategy
-     * @param visualize
-     * @return
-     */
-    public static List<Object> MiM(Block[][] grid, String strategy,
-	    boolean visualize) {
-	List<Object> result = new ArrayList<Object>();
-	List<Node> goalPath;
-	Node root = new Node(null, grid, 0, 0);
-	System.out.println("Board:");
-	System.out.println(root);
-	type = getStrategyType(strategy);
-	SearchProblem sp = new SearchProblem(type);
 
-	long startTime = System.currentTimeMillis();
-	sp.search(root, type);
+	/**
+	 * 
+	 * @param grid
+	 *            generated from GenGrid
+	 * @param strategy
+	 * @param visualize
+	 * @return
+	 */
+	public static List<Object> MiM(Block[][] grid, String strategy,
+			boolean visualize) {
+		List<Object> result = new ArrayList<Object>();
+		List<Node> goalPath;
+		Node root = new Node(null, grid, 0, 0);
+		System.out.println("Board:");
+		System.out.println(root);
+		type = getStrategyType(strategy);
+		SearchProblem sp = new SearchProblem(type);
 
-	NumberFormat myFormat = NumberFormat.getInstance();
-	myFormat.setGroupingUsed(true);
+		long startTime = System.currentTimeMillis();
+		sp.search(root, type);
 
-	long finalTime = System.currentTimeMillis();
-	long totalTime = finalTime - startTime;
-	String timeElapsed = myFormat.format(totalTime);
-	// ================
-	// Search
-	// ================
-	goalPath = sp.search(root, type);
+		NumberFormat myFormat = NumberFormat.getInstance();
+		myFormat.setGroupingUsed(true);
 
-	result.add(goalPath);
-	result.add(timeElapsed);
-	result.add(sp.getNumberOfVisitedNodes());
-	if (visualize) {
-	    List<Node> visitedNodes = sp.getVisitedNodes();
-	    System.out.println("Visited Nodes: ");
-	    for (int i = 0; i < 15; i++)
-		System.out.println(visitedNodes.get(i));
-	    // for (Node x : visitedNodes)
-	    // System.out.println(x);
+		long finalTime = System.currentTimeMillis();
+		long totalTime = finalTime - startTime;
+		String timeElapsed = myFormat.format(totalTime);
+		// ================
+		// Search
+		// ================
+		goalPath = sp.search(root, type);
+		if (goalPath == null) {
+			System.err.println("No Solution Exists!");
+			System.err.println("Time Elapsed: " + timeElapsed);
+			return null;
+		}
+
+		result.add(goalPath);
+		result.add(timeElapsed);
+		result.add(sp.getNumberOfVisitedNodes());
+		if (visualize) {
+			List<Node> visitedNodes = sp.getVisitedNodes();
+			System.out.println("Visited Nodes: ");
+			for (int i = 0; i < 10; i++)
+				System.out.println(visitedNodes.get(i));
+			// for (Node x : visitedNodes)
+			// System.out.println(x);
+		}
+
+		System.err.println("Goal Path:");
+		for (int i = goalPath.size() - 1; i >= 0; i--)
+			System.err.println(goalPath.get(i));
+
+		System.err.println("Time Elapsed: " + timeElapsed + "\nVisited Nodes: "
+				+ sp.getNumberOfVisitedNodes());
+
+		return result;
 	}
 
-	System.out.println("Goal Path:");
-	for (Node x : goalPath)
-	    System.out.println(x);
 
-	System.out.println("Time Elapsed: " + timeElapsed + " Milliseconds"
-		+ "\nVisited Nodes: " + sp.getNumberOfVisitedNodes());
-
-	return result;
-    }
+    
 
     public static int getStrategyType(String strategy) {
 	switch (strategy.trim().toLowerCase()) {
