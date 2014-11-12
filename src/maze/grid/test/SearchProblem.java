@@ -68,6 +68,7 @@ public class SearchProblem {
 				queue.add(root); // increments level by 1 in
 									// ItereativeDeepening.java
 				done.clear();
+				System.err.println("Repeating iteration with more depth");
 				continue;
 			}
 			visitedNodes.add(current);
@@ -96,12 +97,9 @@ public class SearchProblem {
 		return visitedNodes.size();
 	}
 }
-/* Algorithm:
- * nodes <- MAKE-Q(MAKE-NODE(INIT-STATE(problem)))
- * loop do If nodes is empty 
- * then return failure 
- * node <- REMOVE-FRONT(nodes) 
- * If GOAL-TEST(problem)(STATE(node)) 
- * then return node nodes <- QING-FUN(nodes,EXPAND(node, OPER(problem)))
- * end
+/*
+ * Algorithm: nodes <- MAKE-Q(MAKE-NODE(INIT-STATE(problem))) loop do If nodes
+ * is empty then return failure node <- REMOVE-FRONT(nodes) If
+ * GOAL-TEST(problem)(STATE(node)) then return node nodes <-
+ * QING-FUN(nodes,EXPAND(node, OPER(problem))) end
  */
