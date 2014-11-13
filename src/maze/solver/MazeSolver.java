@@ -1,4 +1,4 @@
-package maze.grid.test;
+package maze.solver;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -9,8 +9,12 @@ import maze.utilities.Block;
 import maze.utilities.Constants;
 import maze.utilities.Node;
 
+
+<<<<<<< HEAD:src/maze/grid/test/MazeSolver.java
+=======
 public class MazeSolver {
 
+>>>>>>> 3508201df686637dbcadcec7049f9ff27a115459:src/maze/solver/MazeSolver.java
 	public static void main(String[] args) {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
@@ -19,7 +23,11 @@ public class MazeSolver {
 		strategies.add("g2");
 		strategies.add("as2");
 
+<<<<<<< HEAD:src/maze/grid/test/MazeSolver.java
 		compare(bm.getBoard(), strategies);
+=======
+		compareAlgorithms(bm.getBoard(), strategies);
+>>>>>>> 3508201df686637dbcadcec7049f9ff27a115459:src/maze/solver/MazeSolver.java
 
 		// MiM(bm.getBoard(), "as1", true);
 
@@ -31,7 +39,7 @@ public class MazeSolver {
 	 * @param grid
 	 * @param strategies
 	 */
-	public static void compare(Block[][] grid, List<String> strategies) {
+	public static void compareAlgorithms(Block[][] grid, List<String> strategies) {
 		for (String type : strategies) {
 			MiM(grid, type, false);
 		}
@@ -40,10 +48,10 @@ public class MazeSolver {
 	/**
 	 * 
 	 * @param grid
-	 *            generated from GenGrid
-	 * @param strategy
+	 *            generated from GenGrid method
+	 * @param strategy contains the type of search that will be performed
 	 * @param visualize
-	 * @return
+	 * @return a list of nodes that build the path to the goal if it exists
 	 */
 	public static List<Object> MiM(Block[][] grid, String strategy,
 			boolean visualize) {
@@ -85,8 +93,7 @@ public class MazeSolver {
 				System.out.println(visitedNodes.get(i).costHeuristicValue);
 				System.out.println(visitedNodes.get(i));
 			}
-			// for (Node x : visitedNodes)
-			// System.out.println(x);
+			
 		}
 
 		System.err.println("Goal Path:");
@@ -102,6 +109,10 @@ public class MazeSolver {
 		return result;
 	}
 
+	/**
+	 * @param strategy
+	 * @return the integer representing the search algorithm which will be used
+	 */
 	public static int getStrategyType(String strategy) {
 		switch (strategy.trim().toLowerCase()) {
 		case "bf":

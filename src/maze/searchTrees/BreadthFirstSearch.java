@@ -1,15 +1,21 @@
-package maze.grid.test.search;
+package maze.searchTrees;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Queue;
 
-import maze.grid.test.IQueueingFunction;
+import maze.solver.IQueuingFunction;
 import maze.utilities.Node;
 
-public class AStarSearch implements IQueueingFunction {
+/**
+ * Implements Breadth First Search Algorithm.
+ * @author ahmed
+ *
+ */
+public class BreadthFirstSearch implements IQueuingFunction {
 
-	public PriorityQueue<Node> queue = new PriorityQueue<Node>();
+	public Queue<Node> queue = new LinkedList<Node>();
 
 	@Override
 	public void add(Node x) {
@@ -28,13 +34,11 @@ public class AStarSearch implements IQueueingFunction {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return queue.isEmpty();
 	}
 
 	@Override
 	public List<Node> getChildNodes(Node parent) {
-		// TODO Auto-generated method stub
-		return parent.getChildNodesWithHeuristicsAndCost();
+		return parent.getChildNodes();
 	}
 }

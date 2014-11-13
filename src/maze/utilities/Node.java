@@ -31,14 +31,6 @@ public class Node implements Comparable<Node> {
 	}
 
 	/**
-	 * Method represents the operators and successors/Children
-	 * 
-	 * @param block
-	 * @param action
-	 * @return
-	 */
-
-	/**
 	 * Gets next node from current node
 	 * 
 	 * @param block
@@ -126,6 +118,9 @@ public class Node implements Comparable<Node> {
 		return newNode;
 	}
 
+	/**
+	 * @return list of children nodes for any node
+	 */
 	public List<Node> getChildNodes() {
 		Set<Integer> visitedBlocks = new HashSet<>();
 		List<Node> childNodes = new ArrayList<Node>();
@@ -426,9 +421,6 @@ public class Node implements Comparable<Node> {
 					else
 						boardString += ("" + block.id + "" + block.id + "  |  ")
 								.substring(1);
-
-					// boardString += block.getPivotPosition()[0] + "_"
-					// + block.getPivotPosition()[1] + "  |  ";
 				}
 			}
 			boardString += "\n| ";

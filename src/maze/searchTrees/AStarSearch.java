@@ -1,13 +1,18 @@
-package maze.grid.test.search;
+package maze.searchTrees;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import maze.grid.test.IQueueingFunction;
+import maze.solver.IQueuingFunction;
 import maze.utilities.Node;
 
-public class GreedySearch implements IQueueingFunction {
+/**
+ * Implements the A* search algorithm.
+ * @author Gelly
+ *
+ */
+public class AStarSearch implements IQueuingFunction {
 
 	public PriorityQueue<Node> queue = new PriorityQueue<Node>();
 
@@ -23,19 +28,16 @@ public class GreedySearch implements IQueueingFunction {
 
 	@Override
 	public Node poll() {
-		// TODO Auto-generated method stub
 		return queue.poll();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return queue.isEmpty();
 	}
 
 	@Override
 	public List<Node> getChildNodes(Node parent) {
-		// TODO Auto-generated method stub
-		return parent.getChildNodesWithHeuristics();
+		return parent.getChildNodesWithHeuristicsAndCost();
 	}
 }
