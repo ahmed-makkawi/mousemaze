@@ -49,7 +49,7 @@ public class Node implements Comparable<Node> {
 		int posX = block.getPivotPosition()[0];
 		int posY = block.getPivotPosition()[1];
 
-		Node newNode = new Node(this, board, pathCost + 2, depthCost + 1);
+		Node newNode = new Node(this, board, pathCost + 3, depthCost + 1);
 		Block[][] boardNew = newNode.board;
 
 		final int type = boardNew[posX][posY].getType();
@@ -237,32 +237,32 @@ public class Node implements Comparable<Node> {
 					|| c.getType() == Constants.BLOCK_VERTICAL_SMALL)
 				if (c.getPivotPosition()[0] == 2
 						|| c.getPivotPosition()[0] == 1)
-					return 1;
+					return 2;
 			if (c.getType() == Constants.BLOCK_MOUSE)
 				return 1;
 			else
-				return 2;
+				return 3;
 		case Constants.HEURISTIC_2:
 			// ====================
 			// Prefer to move REX and Vertical Blocks with PivotPos in Row1 or
 			// Row2 and Horizontal Blocks in Row1 and Row3
 			// ====================
+			if (c.getType() == Constants.BLOCK_MOUSE)
+				return 1;
 			if (c.getType() == Constants.BLOCK_VERTICAL_BIG
 					|| c.getType() == Constants.BLOCK_VERTICAL_SMALL)
 				if (c.getPivotPosition()[0] == 2
 						|| c.getPivotPosition()[0] == 1)
-					return 1;
-			if (c.getType() == Constants.BLOCK_MOUSE)
-				return 1;
+					return 2;
 			if (c.getType() == Constants.BLOCK_HORIZONTAL)
 				if (c.getPivotPosition()[0] == 3
 						|| c.getPivotPosition()[0] == 1)
-					return 1;
-				else
 					return 2;
+				else
+					return 3;
 
 		}
-		return 2;
+		return 3;
 	}
 
 	/**

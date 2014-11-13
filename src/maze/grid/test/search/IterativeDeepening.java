@@ -42,9 +42,9 @@ public class IterativeDeepening implements IQueueingFunction {
 	 */
 	@Override
 	public boolean isEmpty() {
-		if (level > Constants.maxLevel)
-			return true;
-		return stack.isEmpty();
+		return level > Constants.maxLevel;
+		// return true;
+		// return stack.isEmpty();
 	}
 
 	/**

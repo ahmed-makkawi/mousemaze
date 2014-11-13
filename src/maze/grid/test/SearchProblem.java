@@ -81,6 +81,7 @@ public class SearchProblem {
 			done.add(current);
 			currentNodeChildren = queue.getChildNodes(current);
 			queue.addAll(currentNodeChildren);
+
 		}
 		return null;
 	}
