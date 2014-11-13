@@ -6,11 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import maze.grid.test.search.AStarSearch;
-import maze.grid.test.search.BreadthFirstSearch;
-import maze.grid.test.search.DepthFirstSearch;
-import maze.grid.test.search.GreedySearch;
-import maze.grid.test.search.IterativeDeepening;
+import maze.searchTrees.AStarSearch;
+import maze.searchTrees.BreadthFirstSearch;
+import maze.searchTrees.DepthFirstSearch;
+import maze.searchTrees.GreedySearch;
+import maze.searchTrees.IterativeDeepening;
+import maze.solver.IQueueingFunction;
 import maze.utilities.Block;
 import maze.utilities.Constants;
 import maze.utilities.Node;
@@ -68,7 +69,7 @@ public class SearchProblem {
 				queue.add(root); // increments level by 1 in
 									// ItereativeDeepening.java
 				done.clear();
-//				System.err.println("Repeating iteration with more depth");
+				// System.err.println("Repeating iteration with more depth");
 				continue;
 			}
 			visitedNodes.add(current);

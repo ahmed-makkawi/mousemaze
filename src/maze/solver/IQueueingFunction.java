@@ -9,7 +9,7 @@ import maze.utilities.Node;
  * Generic queuing functions.
  *
  */
-public interface IQueuingFunction {
+public interface IQueueingFunction {
 
 	public void add(Node x);
 

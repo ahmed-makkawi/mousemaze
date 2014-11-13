@@ -26,7 +26,7 @@ import maze.utilities.Node;
  *
  */
 public class SearchProblem {
-    private IQueuingFunction queue;
+    private IQueueingFunction queue;
     private Set<Node> finishedNodes = new HashSet<Node>(); // To limit tree
 							   // size, To
     // avoid

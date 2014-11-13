@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import maze.solver.IQueuingFunction;
+import maze.solver.IQueueingFunction;
 import maze.utilities.Node;
 
 /**
@@ -13,7 +13,7 @@ import maze.utilities.Node;
  * @author Gelly
  *
  */
-public class GreedySearch implements IQueuingFunction {
+public class GreedySearch implements IQueueingFunction {
 
 	public PriorityQueue<Node> queue = new PriorityQueue<Node>();
 

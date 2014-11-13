@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import maze.solver.IQueuingFunction;
+import maze.solver.IQueueingFunction;
 import maze.utilities.Node;
 
 /**
@@ -13,7 +13,7 @@ import maze.utilities.Node;
  * @author ahmed
  *
  */
-public class BreadthFirstSearch implements IQueuingFunction {
+public class BreadthFirstSearch implements IQueueingFunction {
 
 	public Queue<Node> queue = new LinkedList<Node>();
 

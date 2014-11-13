@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
-import maze.solver.IQueuingFunction;
+import maze.solver.IQueueingFunction;
 import maze.utilities.Node;
 
 /**
@@ -12,7 +12,7 @@ import maze.utilities.Node;
  * @author Omar
  *
  */
-public class DepthFirstSearch implements IQueuingFunction {
+public class DepthFirstSearch implements IQueueingFunction {
 
 	public Stack<Node> stack = new Stack<Node>();
 
