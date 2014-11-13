@@ -1,4 +1,4 @@
-package maze.grid.test;
+package maze.solver;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -9,24 +9,21 @@ import maze.utilities.Block;
 import maze.utilities.Constants;
 import maze.utilities.Node;
 
-public class MazeSolver {
 
-<<<<<<< HEAD
-    private static int type;
-=======
-	private static int type;
+public class MazeSolver {
 
 	public static void main(String[] args) {
 		BoardMaker bm = new BoardMaker();
 		bm.GenGrid();
 
-		MiM(bm.getBoard(), "as1", true);
->>>>>>> 060f14e266278af977479af5f0e43b1fc75d6052
+		List<String> strategies = new ArrayList<String>();
+		strategies.add("g2");
+		strategies.add("as2");
 
-    public static void main(String[] args) {
-	BoardMaker bm = new BoardMaker();
-	bm.GenGrid();
-	MiM(bm.getBoard(), "as1", true);
+		compare(bm.getBoard(), strategies);
+
+		// MiM(bm.getBoard(), "as1", true);
+
 	}
 
 	/**
@@ -40,7 +37,7 @@ public class MazeSolver {
 			MiM(grid, type, false);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param grid
@@ -56,7 +53,7 @@ public class MazeSolver {
 		Node root = new Node(null, grid, 0, 0);
 		System.out.println("Board:");
 		System.out.println(root);
-		type = getStrategyType(strategy);
+		int type = getStrategyType(strategy);
 		SearchProblem sp = new SearchProblem(type);
 
 		long startTime = System.currentTimeMillis();
@@ -74,7 +71,8 @@ public class MazeSolver {
 		goalPath = sp.search(root, type);
 		if (goalPath == null) {
 			System.err.println("No Solution Exists!");
-			System.err.println("Time Elapsed: " + timeElapsed);
+			System.err.println("Time Elapsed: " + timeElapsed
+					+ "\nVisited Nodes: " + sp.getNumberOfVisitedNodes());
 			return null;
 		}
 
@@ -88,23 +86,26 @@ public class MazeSolver {
 				System.out.println(visitedNodes.get(i).costHeuristicValue);
 				System.out.println(visitedNodes.get(i));
 			}
-			// for (Node x : visitedNodes)
-			// System.out.println(x);
+			
 		}
 
 		System.err.println("Goal Path:");
 		for (int i = goalPath.size() - 1; i >= 0; i--) {
-			System.err.println(goalPath.get(i).costHeuristicValue);
+			// System.err.println(goalPath.get(i).costHeuristicValue);
 			System.err.println(goalPath.get(i));
 		}
 
 		System.err.println("Time Elapsed: " + timeElapsed + "\nVisited Nodes: "
-				+ sp.getNumberOfVisitedNodes());
+				+ sp.getNumberOfVisitedNodes() + "\nPathToGoal: "
+				+ goalPath.size());
 
 		return result;
 	}
 
-
+	/**
+	 * @param strategy
+	 * @return the integer representing the search algorithm which will be used
+	 */
 	public static int getStrategyType(String strategy) {
 		switch (strategy.trim().toLowerCase()) {
 		case "bf":
@@ -129,10 +130,10 @@ public class MazeSolver {
 			return Constants.SEARCH_ASTAR_SEARCH;
 
 		}
-    }
+	}
 
-    public static void setHeurestic(int heuristic) {
-	Constants.HEURISTIC_CHOSEN = heuristic;
-    }
+	public static void setHeurestic(int heuristic) {
+		Constants.HEURISTIC_CHOSEN = heuristic;
+	}
 
 }

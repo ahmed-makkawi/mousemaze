@@ -1,11 +1,15 @@
-package maze.grid.test;
+package maze.solver;
 
 import java.util.Collection;
 import java.util.List;
 
 import maze.utilities.Node;
 
-public interface IQueueingFunction {
+/**
+ * Generic queuing functions.
+ *
+ */
+public interface IQueuingFunction {
 
 	public void add(Node x);
 

@@ -1,13 +1,18 @@
-package maze.grid.test.search;
+package maze.searchTrees;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
-import maze.grid.test.IQueueingFunction;
+import maze.solver.IQueuingFunction;
 import maze.utilities.Node;
 
-public class DepthFirstSearch implements IQueueingFunction {
+/**
+ * Implements Depth First Search Algorithm.
+ * @author Omar
+ *
+ */
+public class DepthFirstSearch implements IQueuingFunction {
 
 	public Stack<Node> stack = new Stack<Node>();
 
@@ -23,19 +28,16 @@ public class DepthFirstSearch implements IQueueingFunction {
 
 	@Override
 	public Node poll() {
-		// TODO Auto-generated method stub
 		return stack.pop();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return stack.isEmpty();
 	}
 
 	@Override
 	public List<Node> getChildNodes(Node parent) {
-		// TODO Auto-generated method stub
 		return parent.getChildNodes();
 	}
 }
