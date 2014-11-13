@@ -68,7 +68,7 @@ public class SearchProblem {
 				queue.add(root); // increments level by 1 in
 									// ItereativeDeepening.java
 				done.clear();
-				System.err.println("Repeating iteration with more depth");
+//				System.err.println("Repeating iteration with more depth");
 				continue;
 			}
 			visitedNodes.add(current);
