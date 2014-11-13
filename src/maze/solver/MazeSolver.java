@@ -20,7 +20,7 @@ public class MazeSolver {
 		strategies.add("g2");
 		strategies.add("as2");
 
-		compare(bm.getBoard(), strategies);
+		compareAlgorithms(bm.getBoard(), strategies);
 
 		// MiM(bm.getBoard(), "as1", true);
 
@@ -32,7 +32,7 @@ public class MazeSolver {
 	 * @param grid
 	 * @param strategies
 	 */
-	public static void compare(Block[][] grid, List<String> strategies) {
+	public static void compareAlgorithms(Block[][] grid, List<String> strategies) {
 		for (String type : strategies) {
 			MiM(grid, type, false);
 		}
@@ -41,10 +41,10 @@ public class MazeSolver {
 	/**
 	 * 
 	 * @param grid
-	 *            generated from GenGrid
-	 * @param strategy
+	 *            generated from GenGrid method
+	 * @param strategy contains the type of search that will be performed
 	 * @param visualize
-	 * @return
+	 * @return a list of nodes that build the path to the goal if it exists
 	 */
 	public static List<Object> MiM(Block[][] grid, String strategy,
 			boolean visualize) {
