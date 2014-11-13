@@ -11,7 +11,17 @@ import maze.utilities.Node;
 
 public class MazeSolver {
 
+<<<<<<< HEAD
     private static int type;
+=======
+	private static int type;
+
+	public static void main(String[] args) {
+		BoardMaker bm = new BoardMaker();
+		bm.GenGrid();
+
+		MiM(bm.getBoard(), "as1", true);
+>>>>>>> 060f14e266278af977479af5f0e43b1fc75d6052
 
     public static void main(String[] args) {
 	BoardMaker bm = new BoardMaker();
@@ -74,15 +84,19 @@ public class MazeSolver {
 		if (visualize) {
 			List<Node> visitedNodes = sp.getVisitedNodes();
 			System.out.println("Visited Nodes: ");
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 20; i++) {
+				System.out.println(visitedNodes.get(i).costHeuristicValue);
 				System.out.println(visitedNodes.get(i));
+			}
 			// for (Node x : visitedNodes)
 			// System.out.println(x);
 		}
 
 		System.err.println("Goal Path:");
-		for (int i = goalPath.size() - 1; i >= 0; i--)
+		for (int i = goalPath.size() - 1; i >= 0; i--) {
+			System.err.println(goalPath.get(i).costHeuristicValue);
 			System.err.println(goalPath.get(i));
+		}
 
 		System.err.println("Time Elapsed: " + timeElapsed + "\nVisited Nodes: "
 				+ sp.getNumberOfVisitedNodes());

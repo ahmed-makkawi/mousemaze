@@ -22,5 +22,5 @@ public class Constants {
 			SEARCH_ITERATIVE_DEEPENING = 2, SEARCH_GREEDY_SEARCH = 3,
 			SEARCH_ASTAR_SEARCH = 4;
 
-	public static final int maxLevel = 10; // For ItereativeDeepening
+	public static final int maxLevel = 20; // For ItereativeDeepening
 }
