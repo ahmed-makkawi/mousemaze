@@ -16,11 +16,9 @@ public class MazeSolver {
     public static void main(String[] args) {
 	BoardMaker bm = new BoardMaker();
 	bm.GenGrid();
-	MiM(bm.getBoard(), "id", true);
+	MiM(bm.getBoard(), "as1", true);
 	}
 
-    
-    
 	/**
 	 * Compare algorithms
 	 * 
@@ -32,8 +30,7 @@ public class MazeSolver {
 			MiM(grid, type, false);
 		}
 	}
-
-
+	
 	/**
 	 * 
 	 * @param grid
