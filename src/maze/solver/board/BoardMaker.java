@@ -1,7 +1,7 @@
-package maze.grid;
+package maze.solver.board;
 
-import maze.utilities.Block;
-import maze.utilities.Constants;
+import maze.solver.utilities.Block;
+import maze.solver.utilities.Constants;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
@@ -52,13 +52,13 @@ public class BoardMaker {
 	    switch (blockType) {
 	    case 0:
 	    case 1:
-		block.setTypeWithID(maze.utilities.Constants.BLOCK_HORIZONTAL);
+		block.setTypeWithID(maze.solver.utilities.Constants.BLOCK_HORIZONTAL);
 		break;
 	    case 2:
-		block.setTypeWithID(maze.utilities.Constants.BLOCK_VERTICAL_SMALL);
+		block.setTypeWithID(maze.solver.utilities.Constants.BLOCK_VERTICAL_SMALL);
 		break;
 	    case 3:
-		block.setTypeWithID(maze.utilities.Constants.BLOCK_VERTICAL_BIG);
+		block.setTypeWithID(maze.solver.utilities.Constants.BLOCK_VERTICAL_BIG);
 		break;
 	    }
 	    blockInserted = false;
@@ -75,8 +75,8 @@ public class BoardMaker {
 			if (blockPositionX == 2)
 			    break;
 		    }
-		    if (board[blockPositionX][blockPositionY].getType() == maze.utilities.Constants.BLOCK_GAP) {
-			if (board[blockPositionX][blockPositionY + 1].getType() == maze.utilities.Constants.BLOCK_GAP) {
+		    if (board[blockPositionX][blockPositionY].getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
+			if (board[blockPositionX][blockPositionY + 1].getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
 			    blockInserted = true;
 			    block.setPivotPosition(new int[] { blockPositionX,
 				    blockPositionY });
@@ -93,8 +93,8 @@ public class BoardMaker {
 		case 2:
 		    blockPositionX = (int) (5 * Math.random());
 		    blockPositionY = (int) (6 * Math.random());
-		    if (board[blockPositionX][blockPositionY].getType() == maze.utilities.Constants.BLOCK_GAP) {
-			if (board[blockPositionX + 1][blockPositionY].getType() == maze.utilities.Constants.BLOCK_GAP) {
+		    if (board[blockPositionX][blockPositionY].getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
+			if (board[blockPositionX + 1][blockPositionY].getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
 			    blockInserted = true;
 			    block.setPivotPosition(new int[] { blockPositionX,
 				    blockPositionY });
@@ -111,10 +111,10 @@ public class BoardMaker {
 		case 3:
 		    blockPositionX = (int) (4 * Math.random());
 		    blockPositionY = (int) (6 * Math.random());
-		    if (board[blockPositionX][blockPositionY].getType() == maze.utilities.Constants.BLOCK_GAP) {
-			if (board[blockPositionX + 1][blockPositionY].getType() == maze.utilities.Constants.BLOCK_GAP) {
+		    if (board[blockPositionX][blockPositionY].getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
+			if (board[blockPositionX + 1][blockPositionY].getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
 			    if (board[blockPositionX + 2][blockPositionY]
-				    .getType() == maze.utilities.Constants.BLOCK_GAP) {
+				    .getType() == maze.solver.utilities.Constants.BLOCK_GAP) {
 				blockInserted = true;
 				block.setPivotPosition(new int[] {
 					blockPositionX, blockPositionY });
@@ -155,10 +155,10 @@ public class BoardMaker {
 	    for (int j = 0; j < 6; j++) {
 		block = board[i][j];
 		switch (block.getType()) {
-		case maze.utilities.Constants.BLOCK_GAP:
+		case maze.solver.utilities.Constants.BLOCK_GAP:
 		    boardString += "Gap" + "  |  ";
 		    break;
-		case maze.utilities.Constants.BLOCK_MOUSE:
+		case maze.solver.utilities.Constants.BLOCK_MOUSE:
 		    boardString += "Rex" + "  |  ";
 		    break;
 		default:

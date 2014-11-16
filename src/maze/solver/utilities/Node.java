@@ -1,4 +1,4 @@
-package maze.utilities;
+package maze.solver.utilities;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,8 +33,8 @@ public class Node implements Comparable<Node> {
 	/**
 	 * Gets next node from current node
 	 * 
-	 * @param block
-	 * @param action
+	 * @param block 
+	 * @param action to be applied on block
 	 * @return
 	 */
 	public Node getNextNode(Block block, int action) {
@@ -377,10 +377,10 @@ public class Node implements Comparable<Node> {
 			for (int j = 0; j < 6; j++) {
 				block = board[i][j];
 				switch (block.getType()) {
-				case maze.utilities.Constants.BLOCK_GAP:
+				case maze.solver.utilities.Constants.BLOCK_GAP:
 					boardString += "Gap" + "  |  ";
 					break;
-				case maze.utilities.Constants.BLOCK_MOUSE:
+				case maze.solver.utilities.Constants.BLOCK_MOUSE:
 					boardString += "Rex" + "  |  ";
 					break;
 				default:
@@ -408,10 +408,10 @@ public class Node implements Comparable<Node> {
 			for (int j = 0; j < 6; j++) {
 				block = board[i][j];
 				switch (block.getType()) {
-				case maze.utilities.Constants.BLOCK_GAP:
+				case maze.solver.utilities.Constants.BLOCK_GAP:
 					boardString += "Gap" + "  |  ";
 					break;
-				case maze.utilities.Constants.BLOCK_MOUSE:
+				case maze.solver.utilities.Constants.BLOCK_MOUSE:
 					boardString += "Rex" + "  |  ";
 					break;
 				default:

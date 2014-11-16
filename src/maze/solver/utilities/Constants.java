@@ -1,4 +1,4 @@
-package maze.utilities;
+package maze.solver.utilities;
 
 public class Constants {
 

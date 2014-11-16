@@ -1,13 +1,13 @@
-package maze.searchTrees;
+package maze.solver.search.strategies;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
-import maze.solver.IQueueingFunction;
-import maze.utilities.Constants;
-import maze.utilities.Node;
+import maze.solver.search.IQueueingFunction;
+import maze.solver.utilities.Constants;
+import maze.solver.utilities.Node;
 
 /**
  * Implements the Iterative Deepening Algorithm. 

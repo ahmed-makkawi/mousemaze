@@ -1,4 +1,4 @@
-package maze.utilities;
+package maze.solver.utilities;
 
 /**
  * Class represents the Block and the attributes it needs to represent each

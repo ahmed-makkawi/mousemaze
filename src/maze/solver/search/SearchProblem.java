@@ -1,18 +1,19 @@
-package maze.solver;
+package maze.solver.search;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import maze.searchTrees.AStarSearch;
-import maze.searchTrees.BreadthFirstSearch;
-import maze.searchTrees.DepthFirstSearch;
-import maze.searchTrees.GreedySearch;
-import maze.searchTrees.IterativeDeepening;
-import maze.utilities.Block;
-import maze.utilities.Constants;
-import maze.utilities.Node;
+
+import maze.solver.search.strategies.AStarSearch;
+import maze.solver.search.strategies.BreadthFirstSearch;
+import maze.solver.search.strategies.DepthFirstSearch;
+import maze.solver.search.strategies.GreedySearch;
+import maze.solver.search.strategies.IterativeDeepening;
+import maze.solver.utilities.Block;
+import maze.solver.utilities.Constants;
+import maze.solver.utilities.Node;
 
 /**
  * Generic search class to choose the type of search preferred, search types are

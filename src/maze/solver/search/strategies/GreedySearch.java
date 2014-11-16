@@ -1,21 +1,21 @@
-package maze.searchTrees;
+package maze.solver.search.strategies;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
-import maze.solver.IQueueingFunction;
-import maze.utilities.Node;
+import maze.solver.search.IQueueingFunction;
+import maze.solver.utilities.Node;
 
 /**
- * Implements Breadth First Search Algorithm.
- * @author ahmed
+ * Implements the Greedy Search Algorithm.
+ * 
+ * @author Gelly
  *
  */
-public class BreadthFirstSearch implements IQueueingFunction {
+public class GreedySearch implements IQueueingFunction {
 
-	public Queue<Node> queue = new LinkedList<Node>();
+	public PriorityQueue<Node> queue = new PriorityQueue<Node>();
 
 	@Override
 	public void add(Node x) {
@@ -39,6 +39,6 @@ public class BreadthFirstSearch implements IQueueingFunction {
 
 	@Override
 	public List<Node> getChildNodes(Node parent) {
-		return parent.getChildNodes();
+		return parent.getChildNodesWithHeuristics();
 	}
 }

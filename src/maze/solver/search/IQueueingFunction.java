@@ -1,9 +1,9 @@
-package maze.solver;
+package maze.solver.search;
 
 import java.util.Collection;
 import java.util.List;
 
-import maze.utilities.Node;
+import maze.solver.utilities.Node;
 
 /**
  * Generic queuing functions.
